@@ -1,6 +1,8 @@
 # Python Web Scrapper
 
-A python example script for web page scrapping and data collection
+A python example script for web page scrapping and data collection.
+
+In this example, scraps the Indeed.ca website to find Jobs in Vancouver, BC.
 
 ## Usage
 
