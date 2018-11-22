@@ -51,7 +51,7 @@ def get_url(search, location):
         'limit' : 50,
         'sort' : 'date'
         })
-    return "https://ca.indeed.com/jobs?" + QUERY + "&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=&jt=all&st=&as_src=&salary=&fromage=any&psf=advsrch" 
+    return "https://ca.indeed.com/jobs?" + QUERY + "&jt=all&fromage=any&psf=advsrch" 
 
 
 # Data store path
