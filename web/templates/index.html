@@ -12,73 +12,10 @@
 </head>
 <body>
     <div id="root" class="container"></div>
+    <script type="text/babel" src="static/web/MainView.js"></script>
     <script type="text/babel">
 {% load static %}
 
-class MainView extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        data: [],
-        search: "Python",
-        loading: false,
-        loadingSrc : "{% static "web/loading.gif" %}"
-      }
-      this.handleChange = this.handleChange.bind(this)
-      this.handleClick = this.handleClick.bind(this)
-      this.lastChange = 0
-    }
-    handleChange(event){
-        this.setState({search: event.target.value});
-    }
-    handleClick(event){
-        var self = this
-        window.clearTimeout(this.lastChange)
-        this.setState({data: []});
-        this.lastChange = window.setTimeout(() => {
-            self.loadData()
-        }, 300);
-    }
-    loadData(){
-        this.setState({loading: true});
-        fetch('./search?q='+ this.state.search)
-        .then(response => response.json())
-        .then(data => { 
-            this.setState({ data }) 
-            this.setState({loading: false}) 
-            });
-    }
-    render() {
-      const listItems = this.state.data.map((item) =>
-        <li key="item.id" class="collection-item">
-            <a target="_blank" href={ "https://ca.indeed.com/" + item.link} >{item.text} [{item.comp}]</a>
-            <br/>
-            {item.comp} [{item.pub}]
-            <br/>
-            <small>
-            {item.desc}
-            </small>
-        </li>
-      );
-      return (
-        <main>
-            <h1>Job Search</h1>
-            <div class="row">
-                <div class="col s10"><input type="text" value={this.state.search} onChange={this.handleChange} /></div>
-                <div class="col s2"><a class="waves-effect waves-light btn" onClick={this.handleClick} >Go</a></div>
-            </div>
-            
-            <ul class="collection">
-            {listItems}
-            </ul>
-            { this.state.loading ? <img width="100%" src={this.state.loadingSrc} /> : null }
-        </main>  
-      );
-    }
-    componentDidMount() {
-        this.loadData()
-    }
-}
   
 
 ReactDOM.render(
