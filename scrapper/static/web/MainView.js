@@ -8,19 +8,21 @@ class MainView extends React.Component {
         loading: false
       }
       this.handleChange = this.handleChange.bind(this)
-      this.handleClick = this.handleClick.bind(this)
+      this.handleSubmit = this.handleSubmit.bind(this)
       this.lastChange = 0
     }
     handleChange(event){
         this.setState({search: event.target.value});
     }
-    handleClick(event){
+    handleSubmit(event){
+        event.preventDefault();
         var self = this
         window.clearTimeout(this.lastChange)
         this.setState({data: []});
         this.lastChange = window.setTimeout(() => {
             self.loadData()
         }, 300);
+        return false;
     }
     loadData(){
         this.setState({loading: true});
@@ -44,17 +46,29 @@ class MainView extends React.Component {
         </li>
       );
       return (
-        <main>
-            <h1>Job Search</h1>
-            <div className="row">
-                <div className="col"><input type="text" value={this.state.search} onChange={this.handleChange} /></div>
-                <div className="col"><a className="waves-effect waves-light btn" onClick={this.handleClick} >Go</a></div>
+        <main >
+            <div className="container">
+            <div className="row sticky">
+                    <div className="col s12 m7 left">
+                        <h3 >Job Search</h3>
+                    </div>
+                    <div className="col s12 m5">
+                        <div className="col s12" id="searchContainer">
+                            <form onSubmit={this.handleSubmit}>
+                                <input id="searchTerm" type="text" placeholder="Search term" value={this.state.search} onChange={this.handleChange} />
+                                <span id="searchButton" className="waves-effect waves-light btn right" onClick={this.handleSubmit} >Go</span>
+                            </form>
+                        </div>
+                    </div>
+                
             </div>
+            
             
             <ul className="collection">
             {listItems}
             </ul>
             { this.state.loading ? <img width="100%" src="static/web/loading.gif" /> : null }
+            </div>
         </main>  
       );
     }

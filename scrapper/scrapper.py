@@ -5,6 +5,8 @@ import urllib
 import hashlib
 import time
 
+CACHE_EXPIRES = 60
+
 def list_ids(container):
   return [item.get('id') for item in container]
 
@@ -46,7 +48,7 @@ def get_response(url):
   if os.path.exists(PATH):
     time1 = os.path.getmtime(PATH)
     time2 = time.time()
-    if time2-time1 < 30:
+    if time2-time1 < CACHE_EXPIRES:
       cached = True
   if cached:
     print("Reading", PATH)
