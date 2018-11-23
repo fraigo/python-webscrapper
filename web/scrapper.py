@@ -2,6 +2,8 @@ import sys
 import os, bs4, requests
 import pandas as pd
 import urllib
+import hashlib
+import time
 
 def list_ids(container):
   return [item.get('id') for item in container]
@@ -32,14 +34,42 @@ def parse_content(container):
   #frm['rat'] = rating
   return frm
 
-def scrappe( name, url):
-  print(url)
-  res = pd.DataFrame()
-  PATH = os.path.join("data") 
-  page = requests.get(url)
-  soup = bs4.BeautifulSoup(page.content, 'lxml')
+def getResponse(url):
+  PATH = os.path.join("cache")
+  md5 = hashlib.md5()
+  md5.update(url.encode('utf-8'))
+  id = md5.hexdigest()
+  
+  PATH = os.path.join("cache",id)
+  cached = False
+  if os.path.exists(PATH):
+    time1 = os.path.getmtime(PATH)
+    time2 = time.time()
+    if time2-time1 < 30:
+      cached = True
+  if cached:
+    print("Reading", PATH)
+    with open(PATH, 'r') as content_file:
+      response = content_file.read()
+  else:
+    print("Requesting", url)
+    page = requests.get(url)
+    response = page.text
+    file = open(PATH, "w")
+    file.write(response)
+    file.close() 
+  return response
+
+def scrappe(url):
+  response = getResponse(url)
+  soup = bs4.BeautifulSoup(response, 'lxml')
   container = soup.find(name='td', attrs={'id':'resultsCol'})
+  res = pd.DataFrame()
   res = res.append(parse_content(container))
+  return res
+
+def save(name,res):
+  PATH = os.path.join("data") 
   res.to_csv(os.path.join(os.path.join(PATH,name + ".csv")), index=None, sep=';', encoding='utf-8')
   res.to_json(os.path.join(os.path.join(PATH,name + ".json")), orient='records')
 
