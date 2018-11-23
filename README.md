@@ -51,6 +51,26 @@ Example .json file:
 ]
 ```
 
+## Web interface
+
+After installing Djangom you can run:
+
+```
+python manage.py migrate
+```
+
+Then
+
+```
+python manage.py runserver
+```
+
+A web server will be started at port 8000 (http://localhost:8000)
+
+In this web interface you can query a word and get the results.
+
+
+
 ## Python packages used
 
 * `bs4` - [BeatufulSoup4](https://www.crummy.com/software/BeautifulSoup/) HTML document navigator 
