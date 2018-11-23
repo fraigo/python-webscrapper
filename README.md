@@ -14,12 +14,13 @@ pip install bs4
 pip install requests
 pip install pandas
 pip install lxml
+pip install Django
 ```
 
 Execute the command 
 
 ```
-python scrapper.py [searchTerm]
+python demo.py [searchTerm]
 ```
 
 The results will be stored in a `.csv` and `.json` files in the `./data/` folder.

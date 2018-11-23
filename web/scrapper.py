@@ -21,9 +21,6 @@ def parse_content(container):
   locations = list_text(organic, 'span', {'class':'location'})
   description = list_text(organic, 'span', {'class':'summary'})
   published = list_text(organic, 'span', {'class':'date'})
-  ratings = container.findAll('div', attrs={'class':'sjcl'})
-  #rating = list_text(ratings, 'span', {'class': 'slNoUnderline'})
-  print(len(ratings))
   frm = pd.DataFrame()
   frm['id'] = ids
   frm['text'] = text
