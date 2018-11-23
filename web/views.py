@@ -1,12 +1,13 @@
 from django.http import HttpResponse
+from django.template.loader import render_to_string
+
 from . import scrapper
 
 import os
 
 
 def home(request):
-    filename = os.path.join("templates","index.html")
-    content = open(filename, "r")
+    content = render_to_string('index.html', {'foo': 'bar'})
     return HttpResponse(content)
 
 def data(request):
@@ -23,6 +24,7 @@ def search(request):
         search = request.GET['q']
         LOCATION = "Vancouver, BC"
         url = scrapper.get_url(search, LOCATION)
-        scrapper.scrappe(search,url)
+        res = scrapper.scrappe(url)
+        scrapper.save(search, res)
         return data(request)
     return HttpResponse(content)

@@ -31,6 +31,7 @@ def parse_content(container):
   frm['loc'] = locations
   frm['desc'] = description
   frm['pub'] = published
+  frm.set_index('id')
   #frm['rat'] = rating
   return frm
 
