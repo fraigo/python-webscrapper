@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Python Data Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <h1>Job Search</h1>
+    <div id="root"></div>
+    <script type="text/babel">
+
+class MainView extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        data: [],
+        search: "Python"
+      }
+      this.handleChange = this.handleChange.bind(this)
+      this.lastChange = 0
+    }
+    handleChange(event){
+        var self = this
+        this.setState({search: event.target.value});
+        window.clearTimeout(this.lastChange)
+        this.lastChange = window.setTimeout(() => {
+            self.loadData()
+        }, 1200);
+        
+    }
+    loadData(){
+        fetch('./search?q='+ this.state.search)
+        .then(response => response.json())
+        .then(data => this.setState({ data }));
+    }
+    render() {
+        //id;text;link;comp;loc;desc;pub
+      const listItems = this.state.data.map((item) =>
+        <li key="item.id">
+            <a target="_blank" href={ "https://ca.indeed.com/" + item.link} >{item.text} [{item.comp}]</a> [{item.pub}]
+            <br/>
+            <small>
+            {item.desc}
+            </small>
+        </li>
+      );
+      return (
+        <main>
+            Search: <input type="text" value={this.state.search} onChange={this.handleChange} />
+            <ul>
+            {listItems}
+            </ul>
+        </main>  
+      );
+    }
+    componentDidMount() {
+        this.loadData()
+    }
+}
+  
+
+ReactDOM.render(
+    <MainView />,
+    document.getElementById('root')
+);
+      </script>
+</body>
+</html>

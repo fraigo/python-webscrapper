@@ -35,7 +35,10 @@ def parse_content(container):
   #frm['rat'] = rating
   return frm
 
-def scrapper(res, name, url):
+def scrappe( name, url):
+  print(url)
+  res = pd.DataFrame()
+  PATH = os.path.join("data") 
   page = requests.get(url)
   soup = bs4.BeautifulSoup(page.content, 'lxml')
   container = soup.find(name='td', attrs={'id':'resultsCol'})
@@ -45,25 +48,11 @@ def scrapper(res, name, url):
 
 def get_url(search, location):
     QUERY = urllib.parse.urlencode({ 
-        'as_and' : SEARCH, 
-        'l' : LOCATION ,
+        'as_and' : search, 
+        'l' : location ,
         'radius' : 50,
         'limit' : 50,
         'sort' : 'date'
         })
     return "https://ca.indeed.com/jobs?" + QUERY + "&jt=all&fromage=any&psf=advsrch" 
 
-
-# Data store path
-PATH = os.path.join("data") # you need to change to your local path
-
-# Query variables
-SEARCH = "Python"
-if sys.argv[1]:
-    SEARCH = sys.argv[1]
-
-LOCATION = "Vancouver, BC"
-
-url = get_url(SEARCH, LOCATION)
-res = pd.DataFrame()
-scrapper(res, SEARCH, url)
