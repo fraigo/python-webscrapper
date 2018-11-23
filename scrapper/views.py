@@ -13,7 +13,8 @@ def data(request):
     content = ''
     if 'q' in request.GET:
         search = request.GET['q']
-        filename = os.path.join("data",search+".json")
+        name = scrapper.get_name(search)
+        filename = os.path.join("data",name+".json")
         content = open(filename, "r")
     return HttpResponse(content)
 

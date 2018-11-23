@@ -71,10 +71,15 @@ def scrappe(url):
   res = res.append(parse_content(container))
   return res
 
+def get_name(name):
+  filteredName = ''.join(x for x in name if x.isalpha())
+  return filteredName
+
 def save(name,res):
   PATH = os.path.join("data") 
-  res.to_csv(os.path.join(os.path.join(PATH,name + ".csv")), index=None, sep=';', encoding='utf-8')
-  res.to_json(os.path.join(os.path.join(PATH,name + ".json")), orient='records')
+  NAME = get_name(name)
+  res.to_csv(os.path.join(os.path.join(PATH,NAME + ".csv")), index=None, sep=';', encoding='utf-8')
+  res.to_json(os.path.join(os.path.join(PATH,NAME + ".json")), orient='records')
 
 def get_url(search, location):
     QUERY = urllib.parse.urlencode({ 
