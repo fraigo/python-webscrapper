@@ -1,14 +1,13 @@
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-
-from . import scrapper
+from django.shortcuts import render
+from scrapper import scrapper
 
 import os
 
 
 def home(request):
-    content = render_to_string('index.html', {'foo': 'bar'})
-    return HttpResponse(content)
+    return render(request, 'index.html')
 
 def data(request):
     content = ''

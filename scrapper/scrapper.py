@@ -35,7 +35,7 @@ def parse_content(container):
   #frm['rat'] = rating
   return frm
 
-def getResponse(url):
+def get_response(url):
   PATH = os.path.join("cache")
   md5 = hashlib.md5()
   md5.update(url.encode('utf-8'))
@@ -62,7 +62,7 @@ def getResponse(url):
   return response
 
 def scrappe(url):
-  response = getResponse(url)
+  response = get_response(url)
   soup = bs4.BeautifulSoup(response, 'lxml')
   container = soup.find(name='td', attrs={'id':'resultsCol'})
   res = pd.DataFrame()

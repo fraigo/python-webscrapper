@@ -16,12 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from . import views
+import scrapper.views
 
 urlpatterns = [
-    path('', views.home),
-    path('data', views.data),
-    path('search', views.search),
+    path('', scrapper.views.home),
+    path('data', scrapper.views.data),
+    path('search', scrapper.views.search),
 ] 
 
 

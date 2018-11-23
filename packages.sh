@@ -1,6 +1,3 @@
-pip install bs4
-pip install requests
-pip install pandas
-pip install lxml
+#!/bin/bash
+pip install $(cat requirements.txt)
 
-pip install Django

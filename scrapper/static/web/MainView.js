@@ -47,8 +47,8 @@ class MainView extends React.Component {
         <main>
             <h1>Job Search</h1>
             <div className="row">
-                <div className="col s10"><input type="text" value={this.state.search} onChange={this.handleChange} /></div>
-                <div className="col s2"><a className="waves-effect waves-light btn" onClick={this.handleClick} >Go</a></div>
+                <div className="col"><input type="text" value={this.state.search} onChange={this.handleChange} /></div>
+                <div className="col"><a className="waves-effect waves-light btn" onClick={this.handleClick} >Go</a></div>
             </div>
             
             <ul className="collection">
