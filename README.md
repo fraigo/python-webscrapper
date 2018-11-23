@@ -2,8 +2,21 @@
 
 A python example script for web page scrapping and data collection.
 
-In this example, scraps the Indeed.ca website to find Jobs in Vancouver, BC.
+In this example, scraps the **Indeed.ca** website to find Jobs in *Vancouver, BC*.
 By default, the *search term* is "Python".
+
+## Features
+
+* A Python script utility for web scrapping (`scrapper/scrapper.py`)
+  * Read the content of a remote URL 
+  * Save cached responses for the same search term
+  * Parse Job posting entities to get structured information
+  * Save CSV and JSON data to be loaded into a database or used by a web/mobile application
+* A Django web interface to show dynamic search results  
+  * An Indeed.ca clone to search for job terms
+  * Uses the scrapper/scrapper.py utility as a back-end search engine
+  * Display results using a web interface created with React.js and Materialize.css
+* Heroku integration to publish the application automatically in a cloud environment
 
 ## Usage
 
@@ -15,15 +28,23 @@ pip install requests
 pip install pandas
 pip install lxml
 pip install Django
+pip install gunicorn
+pip install django_heroku
 ```
 
-Execute the command 
+or install using the `pip` shortcut:
+
+```
+pip install -r requirements.txt
+```
+
+Execute this command to test the web scrapper script: 
 
 ```
 python demo.py [searchTerm]
 ```
 
-The results will be stored in a `.csv` and `.json` files in the `./data/` folder.
+The results will be stored in `[searchTerm].csv` and `[searchTerm].json` files in the `./data/` folder.
 
 
 Example .json file:
@@ -53,13 +74,7 @@ Example .json file:
 
 ## Web interface
 
-After installing Djangom you can run:
-
-```
-python manage.py migrate
-```
-
-Then
+You can run the following command to start the Django web interface:
 
 ```
 python manage.py runserver
@@ -68,6 +83,9 @@ python manage.py runserver
 A web server will be started at port 8000 (http://localhost:8000)
 
 In this web interface you can query a word and get the results.
+
+## Screenshot
+
 
 
 
