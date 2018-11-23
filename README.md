@@ -77,5 +77,15 @@ In this web interface you can query a word and get the results.
 * `requests` - [Requests](http://docs.python-requests.org/en/master/) HTTP library
 * `pandas` - [Pandas](https://pandas.pydata.org/) Data analysis library
 * `lxml` - [LXml](https://lxml.de/) XML/HTML document parser
+* `Django` - [Django](https://docs.djangoproject.com/) Python Web framework
 
 
+## Front-end components
+
+* [React.js](https://reactjs.org/) - JavaScript library for building user interfaces
+* [Materialize.css](https://materializecss.com) - Responsive front-end framework based on Material Design
+
+
+
+
+#
